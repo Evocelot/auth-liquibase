@@ -1,6 +1,10 @@
-= liquibase-base
+= auth-liquibase
 
-A foundational project for Liquibase-type applications.
+The Liquibase project for the auth-module
+collects the changesets necessary to build
+the database schema of the auth-module.
+
+Referenced project: link:https://github.com/Evocelot/auth-module[auth-module]
 
 == Technologies Used
 
