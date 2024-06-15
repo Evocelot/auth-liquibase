@@ -1,6 +1,6 @@
 services:
-  evocelot-modulebase-mariadb:
-    container_name: evocelot-modulebase-mariadb
+  evocelot-auth-service-mariadb:
+    container_name: evocelot-auth-service-mariadb
     image: library/mariadb:11.3.2
     ports:
       - "3306:3306"
@@ -10,8 +10,7 @@ services:
       LANG: C.UTF-8
       LC_ALL: C.UTF-8
     healthcheck:
-      test: [ "CMD", "healthcheck.sh", "--connect", "--modulebase_initialized" ]
-      interval: 2s
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
     volumes:
       - ./schema_local_create.sql:/docker-entrypoint-initdb.d/schema_local_create.sql:ro
 networks:
