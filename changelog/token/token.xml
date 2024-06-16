@@ -1,0 +1,115 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet id="01-create-token_type" author="mark.danisovszky">
+        <comment>Create the token_type table</comment>
+        <createTable tableName="token_type">
+            <column name="X__ID" type="VARCHAR(30)" remarks="The primary key.">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="pk-token_type"/>
+            </column>
+
+            <column name="description" type="VARCHAR(200)" remarks="The description of the token type.">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="X__INSDATE" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="Creation date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__INSUSER" type="VARCHAR(30)" defaultValue="0" remarks="Creator user ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__MODDATE" type="TIMESTAMP" remarks="Date of last modification">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__MODUSER" type="VARCHAR(30)" remarks="Modifier user ID">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__VERSION" type="BIGINT" defaultValue="0"
+                    remarks="Document version number, incremented by 1 at every modification">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="01-insert-token_type" author="mark.danisovszky">
+        <comment>Insert the token_types</comment>
+        <insert tableName="token_type">
+            <column name="X__ID" value="ACCESS_TOKEN"/>
+            <column name="description" value="The short life-time access token"/>
+        </insert>
+        <insert tableName="token_type">
+            <column name="X__ID" value="REFRESH_TOKEN"/>
+            <column name="description" value="The long life-time refresh token to get new access tokens"/>
+        </insert>
+        <insert tableName="token_type">
+            <column name="X__ID" value="ACTIVATION_TOKEN"/>
+            <column name="description" value="The activation token for activating the user account"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="01-create-token" author="mark.danisovszky">
+        <comment>Create the token table</comment>
+
+        <createTable tableName="token">
+            <column name="X__ID" type="VARCHAR(30)" remarks="The primary key.">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="pk-token"/>
+            </column>
+
+            <column name="token" type="VARCHAR(100)" remarks="The value of the token.">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_id" type="VARCHAR(30)" remarks="The type of the token.">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"
+                    remarks="The creation time.">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expires_at" type="TIMESTAMP" remarks="The end date of the token.">
+                <constraints nullable="false"/>
+            </column>
+            <column name="security_user_id" type="VARCHAR(30)" remarks="The token owner id.">
+                <constraints nullable="false"/>
+            </column>
+            <column name="related_token_id" type="VARCHAR(30)" remarks="The related token.">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="X__INSDATE" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="Creation date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__INSUSER" type="VARCHAR(30)" defaultValue="0" remarks="Creator user ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__MODDATE" type="TIMESTAMP" remarks="Date of last modification">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__MODUSER" type="VARCHAR(30)" remarks="Modifier user ID">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__VERSION" type="BIGINT" defaultValue="0"
+                    remarks="Document version number, incremented by 1 at every modification">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="01-add-constraints-to-token" author="mark.danisovszky">
+        <comment>Add constraints to token table</comment>
+        <addForeignKeyConstraint baseTableName="token"
+                                 baseColumnNames="related_token_id"
+                                 referencedColumnNames="X__ID"
+                                 referencedTableName="token"
+                                 constraintName="fk_token-token"/>
+        <addForeignKeyConstraint baseTableName="token"
+                                 baseColumnNames="type_id"
+                                 referencedColumnNames="X__ID"
+                                 referencedTableName="token_type"
+                                 constraintName="fk_token-token_type"/>
+        <addForeignKeyConstraint baseTableName="token"
+                                 baseColumnNames="security_user_id"
+                                 referencedColumnNames="X__ID"
+                                 referencedTableName="security_user"
+                                 constraintName="fk_token-security_user"/>
+    </changeSet>
+</databaseChangeLog>
