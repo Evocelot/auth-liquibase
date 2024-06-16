@@ -45,6 +45,10 @@
             <column name="X__ID" value="ACTIVATION_TOKEN"/>
             <column name="description" value="The activation token for activating the user account"/>
         </insert>
+        <insert tableName="token_type">
+            <column name="X__ID" value="RESET_PASSWORD_TOKEN"/>
+            <column name="description" value="The reset token for modifying the password"/>
+        </insert>
     </changeSet>
 
     <changeSet id="01-create-token" author="mark.danisovszky">
