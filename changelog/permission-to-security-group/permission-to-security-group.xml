@@ -1,0 +1,52 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="01-create-permission_to_security_group" author="mark.danisovszky">
+        <comment>Create the permission_to_security_group table</comment>
+
+        <createTable tableName="permission_to_security_group">
+            <column name="X__ID" type="VARCHAR(50)" remarks="The primary key">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="pk-permission_to_security_group"/>
+            </column>
+
+            <column name="permission_id" type="VARCHAR(30)" remarks="The permission.">
+                <constraints nullable="false"/>
+            </column>
+            <column name="security_group_id" type="VARCHAR(30)" remarks="The security group.">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="X__INSDATE" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="Creation date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__INSUSER" type="VARCHAR(30)" defaultValue="0" remarks="Creator user ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__MODDATE" type="TIMESTAMP" remarks="Date of last modification">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__MODUSER" type="VARCHAR(30)" remarks="Modifier user ID">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__VERSION" type="BIGINT" defaultValue="0"
+                    remarks="Document version number, incremented by 1 at every modification">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="01-add-constraints-to-permission_to_security_group" author="mark.danisovszky">
+        <comment>Add constraints to the permission_to_security_group table</comment>
+        <addForeignKeyConstraint baseTableName="permission_to_security_group"
+                                 baseColumnNames="permission_id"
+                                 referencedColumnNames="X__ID"
+                                 referencedTableName="permission"
+                                 constraintName="fk-permission_to_security_group-permission"/>
+        <addForeignKeyConstraint baseTableName="permission_to_security_group"
+                                 baseColumnNames="security_group_id"
+                                 referencedColumnNames="X__ID"
+                                 referencedTableName="security_group"
+                                 constraintName="permission_to_security_group-security_group_id"/>
+    </changeSet>
+</databaseChangeLog>

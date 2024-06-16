@@ -11,6 +11,12 @@
 A Liquibase-based project that contains the necessary scripts
 for creating the database schema for the auth-service project.
 
+== Schema
+
+The database schema is as follows:
+
+image::images/auth-service-schema.drawio.png[auth-service-db-schema]
+
 == Prerequisites
 
 * docker

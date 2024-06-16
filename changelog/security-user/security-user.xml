@@ -1,0 +1,117 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="01-create-security_user_status" author="mark.danisovszky">
+        <comment>Creates the security_user_status table</comment>
+        <createTable tableName="security_user_status">
+            <column name="X__ID" type="VARCHAR(50)" remarks="The primary key">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="pk-security_user_status"/>
+            </column>
+
+            <column name="description" type="VARCHAR(100)" remarks="The description of the status">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="X__INSDATE" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="Creation date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__INSUSER" type="VARCHAR(30)" defaultValue="0" remarks="Creator user ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__MODDATE" type="TIMESTAMP" remarks="Date of last modification">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__MODUSER" type="VARCHAR(30)" remarks="Modifier user ID">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__VERSION" type="BIGINT" defaultValue="0"
+                    remarks="Document version number, incremented by 1 at every modification">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="01-insert-security_user_status" author="mark.danisovszky">
+        <comment>Insert into the security_user_status table</comment>
+        <insert tableName="security_user_status">
+            <column name="X__ID" value="INACTIVE"/>
+            <column name="description" value="The user has not been activated yet"/>
+        </insert>
+        <insert tableName="security_user_status">
+            <column name="X__ID" value="ACTIVE"/>
+            <column name="description" value="The user has been activated"/>
+        </insert>
+        <insert tableName="security_user_status">
+            <column name="X__ID" value="BANNED"/>
+            <column name="description" value="The user is banned"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="01-create-security_user" author="mark.danisovszky">
+        <comment>Create the security_user table</comment>
+
+        <createTable tableName="security_user">
+            <column name="X__ID" type="VARCHAR(50)" remarks="The primary key. Used as the salt too">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="pk-security_user"/>
+            </column>
+
+            <column name="email_address" type="VARCHAR(320)" remarks="The email address of the user">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uq-security_user-email_address"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(255)" remarks="The hashed password of the user">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status_id" type="VARCHAR(30)" remarks="The status id of the user">
+                <constraints nullable="false"/>
+            </column>
+            <column name="security_group_id" type="varchar(30)" remarks="The security group of the user">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="X__INSDATE" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="Creation date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__INSUSER" type="VARCHAR(30)" defaultValue="0" remarks="Creator user ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="X__MODDATE" type="TIMESTAMP" remarks="Date of last modification">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__MODUSER" type="VARCHAR(30)" remarks="Modifier user ID">
+                <constraints nullable="true"/>
+            </column>
+            <column name="X__VERSION" type="BIGINT" defaultValue="0"
+                    remarks="Document version number, incremented by 1 at every modification">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="01-add-constraints-to-security_user" author="mark.danisovszky">
+        <comment>Add constraints to the security_user table</comment>
+        <addForeignKeyConstraint baseTableName="security_user"
+                                 baseColumnNames="status_id"
+                                 referencedColumnNames="X__ID"
+                                 referencedTableName="security_user_status"
+                                 constraintName="fk_security_user-security_user_status"/>
+        <addForeignKeyConstraint baseTableName="security_user"
+                                 baseColumnNames="security_group_id"
+                                 referencedColumnNames="X__ID"
+                                 referencedTableName="security_group"
+                                 constraintName="FK-security_user-security_group_id"/>
+    </changeSet>
+
+    <changeSet id="01-insert-security_user" author="mark.danisovszky">
+        <comment>Insert the superadmin user</comment>
+        <insert tableName="security_user">
+            <column name="X__ID" value="SU_0"/>
+            <column name="email_address" value="admin@admin.hu"/>
+            <!-- pw: admin | SHA512 (FE encrypt) -> SHA512 with salt (BE encrypt) -> encrypted password -->
+            <column name="password_hash"
+                    value="1EFC0ACF06E3C3146BDD97FADB8E024943A94F7096F04AE63B01360E7018587F56D7C898883A40E8E50C1E53F655C904430792575CF4CF16904FAB1351B62740"/>
+            <column name="status_id" value="ACTIVE"/>
+            <column name="security_group_id" value="SG_0"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
