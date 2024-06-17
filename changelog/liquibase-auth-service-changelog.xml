@@ -5,7 +5,7 @@
     <include file="security-group/security-group.xml" relativeToChangelogFile="true"/>
     <include file="permission/permission.xml" relativeToChangelogFile="true"/>
     <include file="permission-to-security-group/permission-to-security-group.xml" relativeToChangelogFile="true"/>
-<!--    <include file="permission/insert-permissions.xml" relativeToChangelogFile="true"/>-->
+    <include file="permission/insert-permissions.xml" relativeToChangelogFile="true"/>
     <include file="security-user/security-user.xml" relativeToChangelogFile="true"/>
     <include file="partner/partner.xml" relativeToChangelogFile="true"/>
     <include file="token/token.xml" relativeToChangelogFile="true"/>
