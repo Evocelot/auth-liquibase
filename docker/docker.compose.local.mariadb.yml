@@ -3,7 +3,7 @@ services:
     container_name: evocelot-auth-service-mariadb
     image: library/mariadb:11.3.2
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
       MARIADB_ROOT_PASSWORD: admin
       TZ: Europe/Budapest
