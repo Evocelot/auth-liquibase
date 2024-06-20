@@ -10,7 +10,7 @@
                 <constraints primaryKey="true" nullable="false" primaryKeyName="pk-permission_to_security_group"/>
             </column>
 
-            <column name="permission_id" type="VARCHAR(30)" remarks="The permission.">
+            <column name="permission_id" type="VARCHAR(100)" remarks="The permission.">
                 <constraints nullable="false"/>
             </column>
             <column name="security_group_id" type="VARCHAR(30)" remarks="The security group.">
