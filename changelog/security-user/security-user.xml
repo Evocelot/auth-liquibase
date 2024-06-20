@@ -107,9 +107,9 @@
         <insert tableName="security_user">
             <column name="X__ID" value="SU_0"/>
             <column name="email_address" value="admin@admin.hu"/>
-            <!-- pw: admin | SHA512 (FE encrypt) -> SHA512 with salt (BE encrypt) -> encrypted password -->
+            <!-- pw: admin | SHA512 (FE encrypt) -> SHA512 with salt SU_0 (BE encrypt) -> encrypted password -->
             <column name="password_hash"
-                    value="1EFC0ACF06E3C3146BDD97FADB8E024943A94F7096F04AE63B01360E7018587F56D7C898883A40E8E50C1E53F655C904430792575CF4CF16904FAB1351B62740"/>
+                    value="4b694ed55c240f7393507dd3b0ca3d4e9f0c8d18001799fc82733d2c73c8d34b3d36c8d771cdf1e15a8a334b5e01ed71cde8a95a7b1c2d281b69de9fa2cdd7f5"/>
             <column name="status_id" value="ACTIVE"/>
             <column name="security_group_id" value="SG_0"/>
         </insert>
