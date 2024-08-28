@@ -8,5 +8,6 @@
     <include file="permission/insert-permissions.xml" relativeToChangelogFile="true"/>
     <include file="security-user/security-user.xml" relativeToChangelogFile="true"/>
     <include file="partner/partner.xml" relativeToChangelogFile="true"/>
+    <include file="partner/insert-partner.xml" relativeToChangelogFile="true"/>
     <include file="token/token.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

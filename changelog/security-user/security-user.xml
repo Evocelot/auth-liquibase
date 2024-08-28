@@ -52,7 +52,7 @@
         <comment>Create the security_user table</comment>
 
         <createTable tableName="security_user">
-            <column name="X__ID" type="VARCHAR(50)" remarks="The primary key. Used as the salt too">
+            <column name="X__ID" type="VARCHAR(30)" remarks="The primary key. Used as the salt too">
                 <constraints primaryKey="true" nullable="false" primaryKeyName="pk-security_user"/>
             </column>
 

@@ -112,12 +112,12 @@
 
         <!-- Security group permission management -->
         <insert tableName="permission">
-            <column name="X__ID" value="ADD_PERMISSION_TO_SECURITY_GROUP"/>
+            <column name="X__ID" value="ADD_PERM_TO_SECURITY_GROUP"/>
             <column name="name" value="ADD_PERMISSION_TO_SECURITY_GROUP"/>
             <column name="description" value="Permission for adding new permission into the security group"/>
         </insert>
         <insert tableName="permission">
-            <column name="X__ID" value="REMOVE_PERMISSION_FROM_SECURITY_GROUP"/>
+            <column name="X__ID" value="REMOVE_PERM_FROM_SEC_GROUP"/>
             <column name="name" value="REMOVE_PERMISSION_FROM_SECURITY_GROUP"/>
             <column name="description" value="Permission for removing permission from the security group"/>
         </insert>
@@ -234,12 +234,12 @@
         <!-- Security group permission management -->
         <insert tableName="permission_to_security_group">
             <column name="X__ID" value="PTSG_20"/>
-            <column name="permission_id" value="ADD_PERMISSION_TO_SECURITY_GROUP"/>
+            <column name="permission_id" value="ADD_PERM_TO_SECURITY_GROUP"/>
             <column name="security_group_id" value="SG_0"/>
         </insert>
         <insert tableName="permission_to_security_group">
             <column name="X__ID" value="PTSG_21"/>
-            <column name="permission_id" value="REMOVE_PERMISSION_FROM_SECURITY_GROUP"/>
+            <column name="permission_id" value="REMOVE_PERM_FROM_SEC_GROUP"/>
             <column name="security_group_id" value="SG_0"/>
         </insert>
     </changeSet>
