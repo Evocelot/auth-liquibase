@@ -5,7 +5,7 @@
         <comment>Create the partner table</comment>
 
         <createTable tableName="partner">
-            <column name="X__ID" type="VARCHAR(50)" remarks="The primary key">
+            <column name="X__ID" type="VARCHAR(30)" remarks="The primary key">
                 <constraints primaryKey="true" nullable="false" primaryKeyName="pk-partner"/>
             </column>
 
@@ -52,16 +52,6 @@
                                  referencedColumnNames="X__ID"
                                  referencedTableName="security_user"
                                  constraintName="fk_partner-security_user"/>
-    </changeSet>
-
-    <changeSet id="01-insert-partner" author="mark.danisovszky">
-        <comment>Create the superadmin partner</comment>
-        <insert tableName="partner">
-            <column name="X__ID" value="P_0"/>
-            <column name="first_name" value="admin"/>
-            <column name="last_name" value="admin"/>
-            <column name="security_user_id" value="SU_0"/>
-        </insert>
     </changeSet>
 
 </databaseChangeLog>

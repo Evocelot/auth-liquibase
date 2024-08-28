@@ -6,7 +6,7 @@
         <comment>Create the security_group table</comment>
 
         <createTable tableName="security_group">
-            <column name="X__ID" type="VARCHAR(50)" remarks="The primary key">
+            <column name="X__ID" type="VARCHAR(30)" remarks="The primary key">
                 <constraints primaryKey="true" nullable="false" primaryKeyName="pk-security_group"/>
             </column>
 
